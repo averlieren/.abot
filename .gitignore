@@ -2,3 +2,5 @@
 *.wav
 *.mp3
 userdata/*
+*.log3
+*.m4a

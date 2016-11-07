@@ -1,10 +1,9 @@
-const Commands = require('../commands.js');
+var Discord = require('discord.js');
+var bot = null;
+var message = null;
 
-module.exports = {
-  "action": function(bot, message, args){
-    Commands.reply(bot, message, 'pong!', 5000);
-  },
-  "description": "pong",
-  "permission": "commands.ping",
-  "alias": []
+function Ping(bot, message, args){
+  
 }
+
+module.exports = Ping;

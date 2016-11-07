@@ -1,30 +1,57 @@
 {
   "bot": {
-    "version": "5.0",
-    "name": ".abot",
+    "version": "3.1",
+    "name": "Anarchy Discord Bot",
     "options": {
       "autoReconnect": true,
       "forceFetchUsers": true,
-      "maxCachedMessages": 2048
+      "maxCachedMessages": 1024
     },
-    "account": {
-      "oauth": false,
-      "oauth-token": "",
-      "username": "",
-      "password": ""
-    }
+    "defaultServer": ""
+  },
+  "account": {
+    "username": "",
+    "password": "",
+    "oauth": true,
+    "oauth-token": ""
   },
   "directories": {
-    "default": "./",
-    "logs": "./logs",
+    "defaultDir": "",
+    "logDir": "logs3",
+    "motd": "",
     "soundboard": {
-      "default": "audio/",
-      "airhorn": "audio/airhorn"
+      "airhorn": "",
+      "amerika": "",
+      "eb": "",
+      "hello": "",
+      "kancho": "",
+      "soundboard": "",
+      "taps": "",
+      "weather": "",
+      "fuck": "",
+      "murloc": "",
+      "dragon": "",
+      "wednesday": "",
+      "roasted": "",
+      "missionreport": ""
     }
   },
-  "commands": {
-    "disabled": [],
-    "prefix": "!",
-    "togethertube": ""
-  }
+  "disabled-commands": [
+    "airhorn",
+    "amerika",
+    "eb",
+    "hello",
+    "kancho",
+    "soundboard",
+    "taps",
+    "weather",
+    "fuck",
+    "murloc",
+    "dragon",
+    "wednesday",
+    "roasted",
+    "missionreport"
+  ],
+  "prefix": "!",
+  "togethertube": ""
 }
