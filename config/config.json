@@ -1,0 +1,30 @@
+{
+  "bot": {
+    "version": "5.0",
+    "name": ".abot",
+    "options": {
+      "autoReconnect": true,
+      "forceFetchUsers": true,
+      "maxCachedMessages": 2048
+    },
+    "account": {
+      "oauth": false,
+      "oauth-token": "",
+      "username": "",
+      "password": ""
+    }
+  },
+  "directories": {
+    "default": "./",
+    "logs": "./logs",
+    "soundboard": {
+      "default": "audio/",
+      "airhorn": "audio/airhorn"
+    }
+  },
+  "commands": {
+    "disabled": [],
+    "prefix": "!",
+    "togethertube": ""
+  }
+}

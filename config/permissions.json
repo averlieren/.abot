@@ -1,0 +1,117 @@
+{
+  "users": {
+    "132757896952807424": {
+      "username": "a_verlieren",
+      "server": {
+        "*": {
+          "group": "superadmin",
+          "permissions": []
+        }
+      }
+    },
+    "135153587629064201": {
+      "username": "Revue",
+      "server": {
+        "134437493893365761": {
+          "group": "admin",
+          "permissions": []
+        },
+        "*": {
+          "group": "moderator",
+          "permissions": []
+        }
+      }
+    },
+    "134468946576277505": {
+      "username": "Keebaun",
+      "server": {
+        "134437493893365761": {
+          "group": "admin",
+          "permissions": []
+        },
+        "*": {
+          "group": "moderator",
+          "permissions": []
+        }
+      }
+    },
+    "134441330670567425": {
+      "username": "Serpent",
+      "server": {
+        "134437493893365761": {
+          "group": "admin",
+          "permissions": []
+        },
+        "*": {
+          "group": "moderator",
+          "permissions": []
+        }
+      }
+    },
+    "189308301031374849": {
+      "username": "Trash",
+      "server": {
+        "*": {
+          "group": "admin",
+          "permissions": []
+        }
+      }
+    },
+    "77596412396699648": {
+      "username": "Alex",
+      "server": {
+        "*": {
+          "group": "voice",
+          "permissions": []
+        }
+      }
+    }
+  },
+  "groups": {
+    "superadmin": {
+      "inherit": [],
+      "permissions": [
+        "*"
+      ]
+    },
+    "admin": {
+      "inherit": [
+        "moderator"
+      ],
+      "permissions": [
+        "commands.quit",
+        "commands.gamerole.set"
+      ]
+    },
+    "moderator": {
+      "inherit": [
+        "voice"
+      ],
+      "permissions": [
+        "commands.youtube"
+      ]
+    },
+    "voice": {
+      "inherit": [
+        "everyone"
+      ],
+      "permissions": [
+        "commands.airhorn",
+        "commands.soundboard",
+        "commands.stop",
+        "commands.taps"
+      ]
+    },
+    "everyone": {
+      "inherit": [],
+      "permissions": [
+        "commands.ping",
+        "commands.gamerole",
+        "commands.help",
+        "commands.coin",
+        "commands.break",
+        "commands.toggle"
+      ]
+    }
+  }
+}
