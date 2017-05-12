@@ -1,39 +1,51 @@
 const fs = require('fs');
-const cmdDir = 'C:/Users/Brandon/Desktop/DiscordJSBot/bot8/src/commands/';
-//TODO: Remove `cmdDir`, replace with config systethis.
 
-class CommandManager {
+class Commands{
   constructor(client){
     this._client = client;
-    this.fetchCommands();
   }
 
   fetchCommands(){
+    /*
+      Load commands into memory
+    */
     this._commands = {};
-    fs.readdir(cmdDir, (e, files) =>{
-      files.forEach(f =>{
-        this._commands[f.replace('.js', '')] = require(cmdDir + f);
-      });
-    });
+
+    fs.readdir('./commands/', (e, files) => {
+      for(let x = 0; x < files.length; x++){
+        let f = files[x];
+        this._commands[f.replace('.js', '')] = require('./commands/' + f);
+      }
+    })
+    global.commands = this._commands;
   }
 
   parse(message){
-    if(message.author.bot || !message.content.startsWith('!')) return;
-    var content = message.content.split(' ');
+    /*
+      Check if message is command, then parse
+    */
+    if(!message.content.startsWith('!')) return;
+    let content = message.content.split(' ');
+
+    console.log("[.abot8] Command parsed, attemting to run...");
+
     this.run(content[0].replace('!', ''), content.dshift(), message);
   }
 
   find(command){
-    for(var k in this._commands)
-      if(k == command || this._commands[k].alias.indexOf(command) > -1) return k;
+    /*
+      Look for command if exists
+    */
+    for(var k in this._commands) if(k == command || this._commands[k].alias.indexOf(command) > -1) return k;
     return false;
   }
 
   run(command, args, message){
-    var command = this.find(command);
+    console.log(`[.abot8] Attempting command execution "${command}"...`);
+    command = this.find(command);
     if(!command) return;
     this._commands[command].action(this._client, args, message);
-    console.log('executed command: ' + command);
+    console.log(`[.abot8] Command "${command}" succesfully executed.`);
   }
 }
 
@@ -42,4 +54,4 @@ Array.prototype.dshift = function() {
     return this;
 }
 
-module.exports = CommandManager;
+module.exports = Commands;

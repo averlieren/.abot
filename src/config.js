@@ -1,20 +1,19 @@
-const cfg = require('./config/config.json');
-
 class Config {
-  get(path){
+  get(path, file){
     return String(this.raw(path));
   }
 
-  raw(path){
-  path = path.split('/');
-  var result = undefined;
+  raw(path, file){
+    file = file | './config/config.json';
+    var cfg = require(file);
+    var schema = this._path;
+    path = path.split('/');
 
-  path.forEach(e =>{
-    if(result && result[e]) result = result[e];
-    if(!result && cfg[e]) result = cfg[e];
-  });
-
-  return result;
+    for(var i = 0; i < path.length; i++){
+      var e = path[i];
+      if(schema[e]) schema = schema[e];
+    }
+    return schema;
   }
 }
 

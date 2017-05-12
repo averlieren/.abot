@@ -1,14 +1,11 @@
 {
   "name": "abot",
   "version": "8.0.0",
-  "description": ".abot",
-  "main": "./src/index.js",
-  "author": "Brandon (a_verlieren) Nguyen",
-  "license": "MIT",
+  "private": true,
   "dependencies": {
-    "discord.js": ">=11.0.0"
-  },
-  "engines": {
-    "node": ">=7.3.0"
+    "discord.js": "~11.1.0",
+    "express": "~4.15.2",
+    "mongodb": "~2.2.26",
+    "winston": "~2.3.1"
   }
 }
