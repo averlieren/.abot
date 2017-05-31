@@ -4,18 +4,19 @@
     this is particularily true for larger lists. The performance difference of small lists is
     within a margin of error.
 */
+require('coffeescript').register();
 
 const Discord = require('discord.js');
 
-const UserProfile = require('./user.js');
-const Config = require('./config.js');
-const Tags = new (require('./tagging.js'));
-const Guild = require('./guild.js');
+const UserProfile = require('./user');
+const Config = require('./config');
+const Tags = new (require('./tagging'));
+const Guild = require('./guild');
 
-const Database = new (require('./database.js'))();
+const Database = new (require('./database'))();
 const Client = new Discord.Client();
-const Commands = new (require('./commands.js'))(Client);
-const Games = new (require('./games.js'))();
+const Commands = new (require('./commands'))(Client);
+const Games = new (require('./games'))();
 
 async function profileSetup(){
   /*
@@ -90,5 +91,7 @@ Client.on('guildMemberAdd', (member) => {
   console.log("[.abot8] guildMemberAdd event");
   (new UserProfile(member.user)).setup();
 })
+
+Client.login('login token here');
 
 console.log('[.abot8] Logging in and initializing...');

@@ -1,5 +1,5 @@
 const UserProfile = require('./user.js');
-const List = require('./config/roles.json');
+const List = require('../../config/roles.json');
 
 class Games{
   async addToGame(member){

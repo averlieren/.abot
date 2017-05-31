@@ -106,8 +106,8 @@ class User{
       Retrieves userdata document from 'users' collection and
         finds data at given path.
     */
-    if(!await this.check()) return;
-
+    let check = await this.check();
+    if(!check) return;
     let doc = await this.retrieve();
     path = path.split('/');
     for(let i = 0; i < path.length; i++) if(doc[path[i]]) doc = doc[path[i]];

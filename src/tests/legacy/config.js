@@ -4,7 +4,7 @@ class Config {
   }
 
   raw(path, file){
-    file = file || './config/config.json';
+    file = file || '../../config/config.json';
     var cfg = require(file);
     var schema = this._path;
     path = path.split('/');

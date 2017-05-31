@@ -1,4 +1,4 @@
-const Database = new (require('../database.js'));
+const Database = new (require('../database'));
 console.log("[.abot8] Retrieving data in 'users' collection of 'abot' database...");
 
 async function check(db){

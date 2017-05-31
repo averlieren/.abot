@@ -1,4 +1,4 @@
-const Database = new (require('../database.js'));
+const Database = new (require('../database'));
 console.log("[.abot8] Clearing data in 'users' collection of 'abot' database.");
 
 function clear(){

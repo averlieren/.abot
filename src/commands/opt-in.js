@@ -1,4 +1,4 @@
-const UserProfile = require('../user.js');
+const UserProfile = require('../user');
 
 /*
   Allows user to opt-in to game tagging, should probably do an opt-out... TODO!

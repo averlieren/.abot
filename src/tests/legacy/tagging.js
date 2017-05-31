@@ -1,5 +1,5 @@
-const Games = new (require('./games.js'));
-const UserProfile = require('./user.js');
+const Games = new (require('./games'));
+const UserProfile = require('./user');
 const Database = new(require('./database.js'))
 
 class Tags{
