@@ -8,9 +8,10 @@ module.exports = {
     let profile = new UserProfile(message.author);
     profile.update(
       ['options.tag'],
-      ['false']
+      ['true']
     );
     message.reply('You have sucessfully opted in for receiving game tags.');
   },
-  "alias": ['']
+  'alias': [''],
+  'description': 'Opt-in to game tagging'
 }

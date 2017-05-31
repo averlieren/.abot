@@ -56,7 +56,7 @@ class User{
     */
     if(await this.check()) {
       if(await this.get('data/username') != this._user.username) this.update(['data.username'], [this._user.username]);
-      return
+      return;
     };
     let data = {};
     let user = this._user;
@@ -66,7 +66,7 @@ class User{
     data['id'] = user.id;
 
     data['data'] = {
-      'lastsave': ((new Date()).getTime() / 1000).toFixed(0), //REVIEW: oops forgot to capitalize 'S' in 'save'.
+      'lastSave': ((new Date()).getTime() / 1000).toFixed(0),
       'accountCreated': ((user.id / 4194304) + 1420070400000).toFixed(0),
       'discriminator': user.discriminator,
       'username': user.username
@@ -97,7 +97,7 @@ class User{
     */
     let field = {};
     for(let i = 0; i < keys.length; i++) field[keys[i]] = values[i];
-    field['data.lastsave'] = ((new Date()).getTime() / 1000).toFixed(0);
+    field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0);
     Database.update('users', {'id': this._user.id}, {$set: field});
   }
 
@@ -107,8 +107,6 @@ class User{
         finds data at given path.
     */
     if(!await this.check()) return;
-    let exists = await this.check();
-    if(!exists) return;
 
     let doc = await this.retrieve();
     path = path.split('/');

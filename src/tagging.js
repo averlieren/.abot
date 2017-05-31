@@ -15,9 +15,13 @@ class Tags{
           user's ability to type out a game's title quickly and
           without interruption.
     */
-    if(!message.content.startsWith('@')) return;
     let content = message.content.split(' ');
-    let game = content[0].substring(1, content[0].length);
+    let game = '';
+    for(let word of content){
+      if(!word.startsWith('@')) continue;
+      game = word.substring(1, word.length);
+    }
+    if(!game || game == 'here' || game == 'everyone') return;
 
     console.log("[.abot8] Tag parsed...");
     (Games.find(game) != null) ? this.tag(Games.find(game), message) : this.tag(game, message);
@@ -35,7 +39,7 @@ class Tags{
     for(let member of message.guild.members.values()){
       if(member.id == message.author.id) continue;
       for(let user of users){
-        if(user.options.tag != true) continue;
+        if(user.options.tag != 'true') continue;
         if(member.id == user.id)
           if(user.games.indexOf(game.toUpperCase()) > -1)
             found.push(member.user.toString());
@@ -49,7 +53,7 @@ class Tags{
     if(users.length == 0){
       message.reply(` no one else has played "${game}" or everyone else has opted out. To opt in do \`!opt-in\``);
     } else {
-      message.reply(` has tagged you for "${game}"\n${users.join('\t')}`);
+      message.channel.send(`<@${message.author.id}> has tagged you for '${game}'\n\t${users.join('\t')}`);
     }
   }
 }

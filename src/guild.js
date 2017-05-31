@@ -1,7 +1,3 @@
-/*
-  TODO: Also finish this.
-*/
-
 const Database = new (require('./database.js'));
 
 class Guild {
@@ -32,11 +28,14 @@ class Guild {
     let data = {}
     let guild = this._guild;
 
-    console.log(`[.abot8] Performing first time setup for "${guild.name}"`);
-
+    console.log(`[.abot8] Performing first time guild setup for "${guild.name}"`);
+    data['data'] = {
+      'lastSave': ((new Date()).getTime() / 1000).toFixed(0)
+    }
+    data['queue'] = {};
     data['id'] = guild.id;
 
-    data['queue'] = {}
+    Database.insert('guilds', data);
   }
 
   async update(keys, values){
@@ -46,13 +45,13 @@ class Guild {
     */
     let field = {};
     for(let i = 0; i < keys.length; i++) field[keys[i]] = values[i];
-    field['data.lastsave'] = ((new Date()).getTime() / 1000).toFixed(0);
-    Database.update('users', {'id': this._user.id}, {$set: field});
+    field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0);
+    Database.update('guilds', {'id': this._guild.id}, {$set: field});
   }
 
   async get(path){
     /*
-      Retrieves userdata document from 'users' collection and
+      Retrieves userdata document from 'guilds' collection and
         finds data at given path.
     */
     if(!await this.check()) return;

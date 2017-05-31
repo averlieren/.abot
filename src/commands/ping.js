@@ -5,5 +5,6 @@ module.exports = {
   action: (client, args, message)=>{
     message.reply('pong');
   },
-  "alias": ['']
+  'alias': [''],
+  'description': 'Check if the bot is online'
 }

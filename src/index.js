@@ -21,7 +21,6 @@ async function profileSetup(){
   /*
     Setup new user profiles if not exist
   */
-  console.log("[.abot8] Setting up user profiles...");
   var users = [];
   Client.guilds.forEach((guild) => {
     if(guild.available){
@@ -53,13 +52,15 @@ Client.on('ready', async () => {
       console.log("[.abot8] Fetching commands...");
       Commands.fetchCommands();
       console.log("[.abot8] Startup successful, bot is online.");
+      global.client = Client;
+      global.queue = {};
     });
   })
 });
 
 Client.on('presenceUpdate', (_, member) => {
   /*
-    QUESTION: Should I have a check for valid games?
+    QUESTION: Should I have a check for valid games
   */
   console.log(`[.abot8] Presence Update for ${member.user.username}`);
   if(member.presence.game) Games.addToGame(member);

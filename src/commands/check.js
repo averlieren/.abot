@@ -5,10 +5,11 @@ const UserProfile = require('../user.js');
 */
 module.exports = {
   action: async (client, args, message) => {
-    let item = args[0] || 'games';
     let profile = new UserProfile(message.author);
-    let data = await profile.get(item);
-    message.reply(data);
+    let games = await profile.get('games');
+    let status = await profile.get('options/tag');
+    message.reply(`OPTED IN: ${status.toUpperCase()}\tGAMES: ${games}`);
   },
-  "alias": ['']
+  'alias': [''],
+  'description': 'Debug command, checks data of your user profile.'
 }

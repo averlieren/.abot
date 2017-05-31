@@ -35,8 +35,9 @@ class Commands{
   find(command){
     /*
       Look for command if exists
+      CHANGED: 2017.5.22 Update: Ignore case
     */
-    for(var k in this._commands) if(k == command || this._commands[k].alias.indexOf(command) > -1) return k;
+    for(var k in this._commands) if(k.toUpperCase() == command.toUpperCase() || this._commands[k].alias.indexOf(command.toLowerCase()) > -1) return k;
     return false;
   }
 

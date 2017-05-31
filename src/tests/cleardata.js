@@ -5,6 +5,7 @@ function clear(){
   return new Promise((resolve) => {
     Database.connect().then((db) => {
       db.collection('users').deleteMany({});
+      db.collection('guilds').deleteMany({});
       db.close();
     })
     resolve();
