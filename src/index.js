@@ -36,18 +36,14 @@ async function profileSetup(){
 
 Client.on('ready', async () => {
   console.log('[.abot8] Logged in... checking database status...');
-  Database.connect().then((db) => {
+
+  Database.getConnection().then((connection) => {
     /*
-      Attempt to establish connection to database, if failure then exit.
-      In here, database is confirmed to be online, execute actions that depend on
-        database connectivity here.
+      Attempt to establish connection to database; exit if failure
     */
-    console.log("[.abot8] Database 'abot' online");
-    db.close();
+    console.log(`[.abot8] Database '${Config.get('core/database/name')}' online`);
+    connection.close();
     profileSetup().then(() => {
-      /*
-        User profiles finished setup, execute other actions that depend on user profiles here.
-      */
       console.log("[.abot8] Fetching commands...");
       Commands.fetchCommands();
 
@@ -59,11 +55,10 @@ Client.on('ready', async () => {
 });
 
 Client.on('presenceUpdate', (_, member) => {
-  /*
-    QUESTION: Should I have a check for valid games
-  */
-  console.log(`[.abot8] Presence Update for ${member.user.username}`);
-  if(member.presence.game) Games.addToGame(member);
+  if(member.presence.game){
+    console.log(`[.abot8] Presence Update for ${member.user.username}`);
+    Games.addToGame(member);
+  }
 })
 
 Client.on('disconnect', () => {

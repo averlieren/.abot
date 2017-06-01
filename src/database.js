@@ -5,62 +5,39 @@ const Config = new (require(path.join(__dirname, 'config')));
 const url = `mongodb://${Config.get('core/database/ip')}:${Config.get('core/database/port')}/${Config.get('core/database/name')}`;
 
 class Database {
-  connect(){
-    /*
-      Connects to database.
-    */
-    return new Promise((resolve) => {
-      MongoClient.connect(url, (err,db) => {
-        assert.equal(null, err);
-        resolve(db);
-      })
-    })
+  async getConnection(){
+    return await MongoClient.connect(url);
   }
 
-  insert(collection, doc){
-    this.connect().then((db) => {
-      db.collection(collection).insertOne(doc);
-      db.close();
-    })
+  async find(collection, query){
+    let connection = await this.getConnection();
+    let cursor = connection.collection(collection).find(query);
+    let doc = await cursor.toArray();
+    connection.close();
+    return doc;
   }
 
   async first(collection, query){
-    return new Promise((resolve) => {
-      this.connect().then((db) => {
-        db.collection(collection).find(query).toArray((err, docs) => {
-          if(docs.length > 0) resolve(docs[0]);
-          resolve(null);
-        })
-        db.close();
-      })
-    })
+    let doc = await this.find(collection, query);
+    return doc[0];
   }
 
-  find(collection, query){
-    return new Promise((resolve) => {
-      this.connect().then((db) => {
-        let cursor = db.collection(collection).find(query);
-        cursor.toArray((err, doc) => {
-          if(err) console.log("[.abot8] Error while attempting to query database");
-          resolve(doc);
-        })
-        db.close();
-      })
-    })
+  async insert(collection, doc){
+    let connection = await this.getConnection();
+    connection.collection(collection).insertOne(doc);
+    connection.close();
   }
 
-  update(collection, filter, fields){
-    this.connect().then((db) => {
-      db.collection(collection).updateOne(filter, fields);
-      db.close();
-    })
+  async update(collection, filter, fields){
+    let connection = await this.getConnection();
+    connection.collection(collection).updateOne(filter, fields);
+    connection.close();
   }
 
-  save(collection, filter, doc){
-    this.connect().then((db) => {
-      db.collection(collection).replaceOne(filter, doc);
-      db.close();
-    })
+  async save(collection, filter, doc){
+    let connection = await this.getConnection();
+    connection.collection(collection).replaceOne(filter, doc);
+    connection.close();
   }
 }
 

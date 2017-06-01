@@ -4,11 +4,11 @@ Database = new (require path.join __dirname, '../', 'database')
 console.log "[.abot8] Clearing database..."
 
 clear = () ->
-  Database.connect().then((db) =>
-    db.collection('users').deleteMany {}
-    db.collection('guilds').deleteMany {}
-    db.close()
-  )
+  Database.getConnection().then(connection){
+    connection.collection('users').deleteMany {}
+    connection.collection('guilds').deleteMany {}
+    connection.close()
+  }
 
   undefined
 
