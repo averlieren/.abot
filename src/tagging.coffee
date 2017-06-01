@@ -43,4 +43,6 @@ class Tag
     else
       message.channel.send "", Embeds.generate ".abot Tagging", "<@#{message.author.id}> has tagged you for '#{game}'\n\t#{users.join '\t'}", "0xFFB500"
 
+    undefined
+
 module.exports = Tag

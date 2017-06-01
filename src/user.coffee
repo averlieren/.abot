@@ -84,7 +84,7 @@ class User
   update: (keys, values) ->
     field = {}
     field[keys[i]] = values[i] for i in [0..keys.length - 1]
-    field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0);
+    field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0)
 
     Database.update 'users', {'id': @user.id}, {$set: field}
 
@@ -95,10 +95,11 @@ class User
     # QUESTION: Change delimiter to '.' to maintain consistency with MongoDB
     created = await @check()
     return undefined if !created
-    doc = await this.retrieve()
+    doc = await @retrieve()
     path = path.split '/'
     for i in [0..path.length - 1]
       doc = doc[path[i]] if doc[path[i]]
-    return doc
+
+    doc
 
 module.exports = User
