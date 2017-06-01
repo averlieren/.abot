@@ -14,7 +14,7 @@ class Commands{
     fs.readdir('./commands/', (e, files) => {
       for(let x = 0; x < files.length; x++){
         let f = files[x];
-        this._commands[f.replace('.js', '')] = require('./commands/' + f);
+        this._commands[f.replace(/(.js|.coffee)/, '')] = require('./commands/' + f);
       }
     })
     global.commands = this._commands;

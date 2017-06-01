@@ -4,7 +4,7 @@
     this is particularily true for larger lists. The performance difference of small lists is
     within a margin of error.
 */
-require('coffeescript').register();
+require('coffeescript/register')
 
 const Discord = require('discord.js');
 
