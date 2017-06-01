@@ -1,22 +1,20 @@
 /*
-  TODO: Replace lengthy promise chains with async/await.
-  NOTE: forEach loops are generally slower then for loops in Chromium based browsers and engines,
-    this is particularily true for larger lists. The performance difference of small lists is
-    within a margin of error.
+  TODO: Listen to STDIN in order to execute operations from command line
 */
+
 require('coffeescript/register')
 
+const path = require('path');
 const Discord = require('discord.js');
 
-const UserProfile = require('./user');
-const Config = require('./config');
-const Tags = new (require('./tagging'));
-const Guild = require('./guild');
-
-const Database = new (require('./database'))();
 const Client = new Discord.Client();
-const Commands = new (require('./commands'))(Client);
-const Games = new (require('./games'))();
+const Commands = new (require(path.join(__dirname, 'commands')))(Client);
+const Config = new (require(path.join(__dirname, 'config')));
+const Database = new (require(path.join(__dirname, 'database')))();
+const Games = new (require(path.join(__dirname, 'games')))();
+const Guild = require(path.join(__dirname, 'guild'));
+const Tags = new (require(path.join(__dirname, 'tagging')));
+const UserProfile = require(path.join(__dirname, 'user'));
 
 async function profileSetup(){
   /*
@@ -52,6 +50,7 @@ Client.on('ready', async () => {
       */
       console.log("[.abot8] Fetching commands...");
       Commands.fetchCommands();
+
       console.log("[.abot8] Startup successful, bot is online.");
       global.client = Client;
       global.queue = {};
@@ -92,6 +91,6 @@ Client.on('guildMemberAdd', (member) => {
   (new UserProfile(member.user)).setup();
 })
 
-Client.login('login token here');
+Client.login(Config.get('core/token'));
 
 console.log('[.abot8] Logging in and initializing...');

@@ -1,3 +1,8 @@
+###
+  Replys with an embed containing a list of 5 commands per page along
+    with the description of the command's purpose.
+###
+
 path = require 'path'
 Discord = require 'discord.js'
 Embeds = new (require path.join __dirname, '../', 'embeds')

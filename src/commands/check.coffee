@@ -1,3 +1,8 @@
+###
+  Debug command, allows user to view tagging status (opted in or out)
+    and games attached to user profile.
+###
+
 path = require 'path'
 UserProfile = require path.join __dirname, '../', 'user'
 Embeds = new (require path.join __dirname, '../', 'embeds')

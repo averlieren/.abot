@@ -1,3 +1,8 @@
+###
+  Allows the user to opt-in to tagging
+  TODO: Change to '!toggle' or make new command to opt-out
+###
+
 path = require 'path'
 UserProfile = require path.join __dirname, '../', 'user'
 

@@ -1,0 +1,16 @@
+{
+  "core": {
+    "token": "",
+    "database": {
+      "ip": "127.0.0.1",
+      "port": "27017",
+      "name": "abot"
+    }
+  },
+  "commands": {
+    "disabled": [
+      "play",
+      "check"
+    ]
+  }
+}

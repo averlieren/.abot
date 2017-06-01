@@ -1,20 +1,42 @@
 fs = require 'fs'
 path = require 'path'
+Config = new (require path.join __dirname, 'config')
+
 
 class Commands
   constructor: (client) ->
     @client = client
 
+  refreshCommands: () ->
+    # Refresh commands without restarting client
+
+    console.log "[.abot8] Refreshing commands... unloading..."
+
+    for own command, _ of global.commands
+      console.log "[.abot8] \tUnloading \"#{command}\"..."
+      delete require.cache[require.resolve path.join __dirname, 'commands', command]
+      
+    global.commands = undefined
+
+    @fetchCommands()
+
+    undefined
+
   fetchCommands: () ->
     # Load commands
 
-    @commands = {}
+    global.commands = {}
+    @disabled = Config.raw 'commands/disabled'
+
+    console.log "[.abot8] The following commands have been disabled; skipping initialization..."
+    console.log "[.abot8] \t#{@disabled.join ', '}"
+
     fs.readdir path.join(__dirname, 'commands'), (e, files) =>
       for i in [0..files.length - 1]
         f = files[i]
-        @commands[f.replace /(.js|.coffee)/, ''] = require path.join __dirname, 'commands', f
-
-    global.commands = @commands
+        name = f.replace /(.js|.coffee)/, ''
+        continue if @disabled.indexOf(name) > - 1
+        global.commands[name] = require path.join __dirname, 'commands', name
 
     undefined
 
@@ -32,8 +54,9 @@ class Commands
 
   find: (command) ->
     # Check if command exists
-    for k, _ of @commands
-      if k.toUpperCase() == command.toUpperCase() || @commands[k].alias.indexOf(command.toLowerCase()) > -1
+
+    for k, _ of global.commands
+      if k.toUpperCase() == command.toUpperCase() || global.commands[k].alias.indexOf(command.toLowerCase()) > -1
         return k
 
     false
@@ -44,7 +67,7 @@ class Commands
 
     return undefined if !command
 
-    @commands[command].action @client, args, message
+    global.commands[command].action @client, args, message
 
     console.log "[.abot8] #{command} executed successfully"
 

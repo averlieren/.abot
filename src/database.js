@@ -1,6 +1,8 @@
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
-const url = 'mongodb://localhost:27017/abot';
+const path = require('path');
+const Config = new (require(path.join(__dirname, 'config')));
+const url = `mongodb://${Config.get('core/database/ip')}:${Config.get('core/database/port')}/${Config.get('core/database/name')}`;
 
 class Database {
   connect(){
