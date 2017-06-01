@@ -12,7 +12,7 @@ class Commands
     fs.readdir path.join(__dirname, 'commands'), (e, files) =>
       for i in [0..files.length - 1]
         f = files[i]
-        @commands[f.replace /(.js|coffee)/, ''] = require path.join __dirname, 'commands', f
+        @commands[f.replace /(.js|.coffee)/, ''] = require path.join __dirname, 'commands', f
 
     global.commands = @commands
 
@@ -32,9 +32,10 @@ class Commands
 
   find: (command) ->
     # Check if command exists
-    for k in @commands
+    for k, _ of @commands
       if k.toUpperCase() == command.toUpperCase() || @commands[k].alias.indexOf(command.toLowerCase()) > -1
         return k
+
     false
 
   run: (command, args, message) ->

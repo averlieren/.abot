@@ -35,9 +35,11 @@ Database = new (require path.join __dirname, 'database')
 class User
   constructor: (user) ->
     @user = user
+
   retrieve: () ->
     # Attempt to retrieve user data from 'users' collection.
     await Database.first 'users', {'id': @user.id}
+
   check: () ->
     # Checks if user data is present and user is not bot.
     doc = await @retrieve()
@@ -45,6 +47,7 @@ class User
       false
     else
       true
+
   setup: () ->
     # Do if check fails.
     return undefined if await @check()

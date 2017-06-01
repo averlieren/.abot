@@ -11,6 +11,7 @@ class Games
     return undefined if currentGames.indexOf(game) != -1
     currentGames.push game
     profile.update ['games'], [currentGames]
+
     undefined
 
   find: (game) ->
@@ -18,6 +19,7 @@ class Games
     for role of GameList
       for i in [0..GameList[role].length - 1]
         return role if String(game).toUpperCase() == GameList[role][i].toUpperCase()
+        
     null
 
 module.exports = Games

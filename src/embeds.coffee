@@ -10,6 +10,6 @@ class Embeds
       .setColor color
       .setFooter '.abot by Brandon Nguyen (a_verlieren#7096)', 'https://emojipedia-us.s3.amazonaws.com/cache/4a/cf/4acf72ea50fb1361c9748a579ba952fc.png'
       .setTimestamp()
-    return {embed}
+    {embed}
 
 module.exports = Embeds

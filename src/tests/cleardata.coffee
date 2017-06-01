@@ -10,6 +10,8 @@ clear = () ->
     db.close()
   )
 
+  undefined
+
 process.exit 1 # Comment in order to clear database
 
 ###
