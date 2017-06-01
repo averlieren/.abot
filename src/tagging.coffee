@@ -25,6 +25,7 @@ class Tag
     undefined
 
   getUsers: (game, message) ->
+    # Search users' games to find matching game
     found = []
     users = await Database.find 'users', {}
 

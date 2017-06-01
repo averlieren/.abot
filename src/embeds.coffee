@@ -2,6 +2,7 @@ Discord = require 'discord.js'
 
 class Embeds
   generate: (title, message, color) ->
+    # Generate an embedded message
     color = color || '0xff7913';
     embed = new Discord.RichEmbed()
       .setAuthor title, 'https://i.imgur.com/jSW1A45.png'

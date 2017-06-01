@@ -29,9 +29,10 @@ getEmbed = (page) ->
   Embeds.generate ".abot Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})", desc
 
 
-module.exports = {
+module.exports =
   action: (client, args, message) ->
     message.channel.send '', getEmbed args[0]
+
+    undefined
   alias: ['']
   description: 'Returns a list of commands'
-}

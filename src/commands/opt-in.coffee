@@ -9,6 +9,5 @@ module.exports =
     message.reply "You've successfully opted in for recieving game tags."
 
     undefined
-
   alias: ['']
   description: 'Opt-in to game tagging'

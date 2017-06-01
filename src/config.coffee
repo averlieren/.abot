@@ -2,6 +2,7 @@ path = require 'path'
 
 class Config
   get: (path, file) ->
+    # Returns a string of requested path from file
     String @raw path, file
 
   raw: (path, file) ->
