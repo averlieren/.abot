@@ -2,7 +2,6 @@ fs = require 'fs'
 path = require 'path'
 Config = new (require path.join __dirname, 'config')
 
-
 class Commands
   constructor: (client) ->
     @client = client
@@ -15,7 +14,7 @@ class Commands
     for own command, _ of global.commands
       console.log "[.abot8] \tUnloading \"#{command}\"..."
       delete require.cache[require.resolve path.join __dirname, 'commands', command]
-      
+
     global.commands = undefined
 
     @fetchCommands()
@@ -24,20 +23,22 @@ class Commands
 
   fetchCommands: () ->
     # Load commands
-
+    console.log "[.abot8] Fetching commands..."
     global.commands = {}
     @disabled = Config.raw 'commands/disabled'
 
-    console.log "[.abot8] The following commands have been disabled; skipping initialization..."
-    console.log "[.abot8] \t#{@disabled.join ', '}"
-
     fs.readdir path.join(__dirname, 'commands'), (e, files) =>
+      console.log "[.abot8] The following commands have been disabled; skipping initialization..."
+      console.log "[.abot8] \t#{@disabled.join ', '}"
+      console.log "[.abot8] Loading commands..."
       for i in [0..files.length - 1]
         f = files[i]
         name = f.replace /(.js|.coffee)/, ''
         continue if @disabled.indexOf(name) > - 1
+        console.log "[.abot8] \tLoaded \"#{name}\""
         global.commands[name] = require path.join __dirname, 'commands', name
 
+        true
     undefined
 
   parse: (message) ->

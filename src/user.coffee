@@ -43,7 +43,8 @@ class User
   check: () ->
     # Checks if user data is present and user is not bot.
     doc = await @retrieve()
-    if doc == null && !@user.bot
+
+    if !doc && !@user.bot
       false
     else
       true
@@ -51,6 +52,7 @@ class User
   setup: () ->
     # Do if check fails.
     return undefined if await @check()
+    console.log "[.abot8] #{@user.username}"
     data = {}
 
     console.log "[.abot8] Performing first time setup for #{@user.username}."

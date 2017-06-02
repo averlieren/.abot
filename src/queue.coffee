@@ -48,6 +48,8 @@ class Queue
 
     console.log "[.abot8] #{next}"
 
+    undefined
+
 
 
 module.exports = Queue

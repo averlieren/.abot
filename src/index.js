@@ -1,7 +1,3 @@
-/*
-  TODO: Listen to STDIN in order to execute operations from command line
-*/
-
 require('coffeescript/register')
 
 const path = require('path');
@@ -15,6 +11,8 @@ const Games = new (require(path.join(__dirname, 'games')))();
 const Guild = require(path.join(__dirname, 'guild'));
 const Tags = new (require(path.join(__dirname, 'tagging')));
 const UserProfile = require(path.join(__dirname, 'user'));
+const Input = new (require(path.join(__dirname, 'input')))(Client);
+process.stdin.setEncoding('utf8')
 
 async function profileSetup(){
   /*
@@ -38,16 +36,14 @@ Client.on('ready', async () => {
   console.log('[.abot8] Logged in... checking database status...');
 
   Database.getConnection().then((connection) => {
-    /*
-      Attempt to establish connection to database; exit if failure
-    */
+    // Exit if failure to connect to database
     console.log(`[.abot8] Database '${Config.get('core/database/name')}' online`);
     connection.close();
-    profileSetup().then(() => {
-      console.log("[.abot8] Fetching commands...");
+    profileSetup().then(async () => {
       Commands.fetchCommands();
-
       console.log("[.abot8] Startup successful, bot is online.");
+      Input.listen();
+
       global.client = Client;
       global.queue = {};
     });
@@ -82,7 +78,7 @@ Client.on('guildMemberAdd', (member) => {
   /*
     Setup new userprofile if not exists for new user, to ensure dependent functions work properly
   */
-  console.log("[.abot8] guildMemberAdd event");
+  console.log(`[.abot8] guildMemberAdd event: ${member.user.username}`);
   (new UserProfile(member.user)).setup();
 })
 
