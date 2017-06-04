@@ -9,8 +9,7 @@
   },
   "commands": {
     "disabled": [
-      "play",
-      "check"
+      "example"
     ]
   }
 }

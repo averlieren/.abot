@@ -13,14 +13,14 @@ Database = new (require path.join __dirname, 'database')
     server
       server1
         group
-          permissions [node1, node2, ..., nodeN]
+        permissions [node1, node2, ..., nodeN]
       server2
         group
-          permissions [node1, node2, ..., nodeN]
+        permissions [node1, node2, ..., nodeN]
       ...
       serverN
         group
-          permissions [node1, node2, ..., nodeN]
+        permissions [node1, node2, ..., nodeN]
     global
       group
       permissions [node1, node2, ..., nodeN]

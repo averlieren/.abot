@@ -17,9 +17,30 @@ class Commands
 
     global.commands = undefined
 
+    Config.refresh()
     @fetchCommands()
 
     undefined
+
+  validate: (name, command) ->
+    # Check if command is valid
+    valid = true
+    for property in ['action', 'alias', 'description']
+      valid = false if !command[property]
+
+    return true if valid
+
+    console.log "[.abot8] Command \'#{name}\' failed validation, skipping initialization..."
+    delete require.cache[require.resolve path.join __dirname, 'commands', name]
+
+    false
+
+  isCommand: (file) ->
+    return true if /(.js|.coffee)/.test file
+
+    console.log "[.abot8] Found file: #{file} in command folder... invalid file format..."
+
+    false
 
   fetchCommands: () ->
     # Load commands
@@ -31,14 +52,16 @@ class Commands
       console.log "[.abot8] The following commands have been disabled; skipping initialization..."
       console.log "[.abot8] \t#{@disabled.join ', '}"
       console.log "[.abot8] Loading commands..."
-      for i in [0..files.length - 1]
-        f = files[i]
-        name = f.replace /(.js|.coffee)/, ''
+      for file in files
+        continue if !@isCommand file
+        name = file.replace /(.js|.coffee)/, ''
         continue if @disabled.indexOf(name) > - 1
+        command = require path.join __dirname, 'commands', name
+        continue if !@validate(name, command)
         console.log "[.abot8] \tLoaded \"#{name}\""
-        global.commands[name] = require path.join __dirname, 'commands', name
-
-        true
+        global.commands[name] = command;
+      true
+      
     undefined
 
   parse: (message) ->

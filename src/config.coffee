@@ -15,4 +15,8 @@ class Config
       schema = schema[i] if schema[i]
     schema
 
+  refresh: (file) ->
+    file = file || path.join __dirname, 'config', 'settings.json'
+    delete require.cache[require.resolve file]
+    
 module.exports = Config
