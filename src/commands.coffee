@@ -92,8 +92,7 @@ class Commands
     console.log "[.abot8] Attempting to execute #{command}..."
     command = @find command
 
-    return undefined if !command
-    return undefined if global.commands[command].environment.indexOf(env) == -1
+    return undefined if !command || global.commands[command].environment.indexOf(env) == -1
 
     global.commands[command].action @client, args, message, env
 

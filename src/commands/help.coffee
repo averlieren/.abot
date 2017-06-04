@@ -1,5 +1,5 @@
 ###
-  Replys with an embed containing a list of 5 commands per page along
+  Replies with an embed containing a list of 5 commands per page along
     with the description of the command's purpose.
 ###
 
@@ -29,7 +29,6 @@ getEmbed = (page) ->
   page = Number page || 1
   helpPage = getHelpPage page
   desc = ''
-  # desc += "**!#{helpPage[i][0]}**\n#{helpPage[i][1]}\n" for i in [0..helpPage.length - 1]
   desc += "**!#{command[0]}**\n#{command[1]}\n" for command in helpPage
 
   Embeds.generate ".abot Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})", desc

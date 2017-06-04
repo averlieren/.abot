@@ -11,7 +11,7 @@ clear = () ->
 
   undefined
 
-#process.exit 1 # Comment in order to clear database
+process.exit 1 # Comment in order to clear database
 
 
 # In order to prevent accidental erasure, the following is commented.
