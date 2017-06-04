@@ -16,10 +16,7 @@ class Input
     undefined
   process: (data) ->
     data = data.replace /[^a-z0-9]/gi, ''
-    switch data.toUpperCase()
-      when 'REFRESH'
-        Commands.refreshCommands()
-      else
-        console.log "[.abot8] Unknown command"
+    Commands.parse data, 'CLI'
+
     undefined
 module.exports = Input

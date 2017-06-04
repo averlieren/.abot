@@ -7,10 +7,11 @@ path = require 'path'
 Commands = require path.join __dirname, '../', 'commands'
 
 module.exports =
-  action: (client, args, message) ->
+  action: (client, args, message, env) ->
     cmdMgr = new Commands client
     cmdMgr.refreshCommands()
 
     undefined
   alias: ['']
   description: 'Refresh commands'
+  environment: ['DISCORD', 'CLI']

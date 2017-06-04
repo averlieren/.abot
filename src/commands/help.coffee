@@ -29,15 +29,28 @@ getEmbed = (page) ->
   page = Number page || 1
   helpPage = getHelpPage page
   desc = ''
-  desc += "**!#{helpPage[i][0]}**\n#{helpPage[i][1]}\n" for i in [0..helpPage.length - 1]
+  # desc += "**!#{helpPage[i][0]}**\n#{helpPage[i][1]}\n" for i in [0..helpPage.length - 1]
+  desc += "**!#{command[0]}**\n#{command[1]}\n" for command in helpPage
 
   Embeds.generate ".abot Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})", desc
 
+outputHelpPage = (page) ->
+  page = Number page || 1
+  helpPage = getHelpPage page
+  desc = ''
+  console.log "[.abot8] Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})"
+  console.log "[.abot8] !#{command[0]}: #{command[1]}" for command in helpPage
+
+  undefined
 
 module.exports =
-  action: (client, args, message) ->
-    message.channel.send '', getEmbed args[0]
+  action: (client, args, message, env) ->
+    if env == 'CLI'
+      outputHelpPage args[0]
+    else
+      message.channel.send '', getEmbed args[0]
 
     undefined
   alias: ['']
   description: 'Returns a list of commands'
+  environment: ['DISCORD', 'CLI']

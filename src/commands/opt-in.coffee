@@ -6,7 +6,7 @@ path = require 'path'
 UserProfile = require path.join __dirname, '../', 'user'
 
 module.exports =
-  action: (client, args, message) ->
+  action: (client, args, message, env) ->
     profile = new UserProfile message.author
     profile.update ['options.tag'], ['true']
 
@@ -15,3 +15,4 @@ module.exports =
     undefined
   alias: ['']
   description: 'Opt-in to game tagging'
+  environment: ['DISCORD']

@@ -61,18 +61,21 @@ class Commands
         console.log "[.abot8] \tLoaded \"#{name}\""
         global.commands[name] = command;
       true
-      
+
     undefined
 
-  parse: (message) ->
+  parse: (message, env) ->
     # Check if message is command
+    env = env || 'DISCORD'
 
-    return undefined if !message.content.startsWith '!'
-    content = message.content.split ' '
-
+    if env == 'DISCORD'
+      return undefined if !message.content.startsWith '!'
+      content = message.content.split ' '
+    else if env == 'CLI'
+      content = message.split ' '
     console.log "[.abot8] Command parsed. attempting execution..."
 
-    @run content[0].replace('!', ''), content.dshift(), message
+    @run content[0].replace('!', ''), content.dshift(), message, env
 
     undefined
 
@@ -85,15 +88,16 @@ class Commands
 
     false
 
-  run: (command, args, message) ->
+  run: (command, args, message, env) ->
     console.log "[.abot8] Attempting to execute #{command}..."
     command = @find command
 
     return undefined if !command
+    return undefined if global.commands[command].environment.indexOf(env) == -1
 
-    global.commands[command].action @client, args, message
+    global.commands[command].action @client, args, message, env
 
-    console.log "[.abot8] #{command} executed successfully"
+    console.log "[.abot8] #{command} executed successfully (#{env})"
 
     undefined
 
