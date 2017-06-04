@@ -15,7 +15,7 @@ class Input
 
     undefined
   process: (data) ->
-    data = data.replace /[^a-z0-9]/gi, ''
+    data = data.replace /[^\-\w\ ]/gi, ''
     Commands.parse data, 'CLI'
 
     undefined
