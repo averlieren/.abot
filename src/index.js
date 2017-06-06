@@ -52,7 +52,7 @@ Client.on('ready', async () => {
 
 Client.on('presenceUpdate', (_, member) => {
   if(member.presence.game){
-    console.log(`[.abot8] Presence Update for ${member.user.username}`);
+    console.log(`[.abot8] Presence update for ${member.user.username} (${member.presence.game})`);
     Games.addToGame(member);
   }
 })

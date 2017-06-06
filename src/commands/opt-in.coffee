@@ -10,7 +10,7 @@ module.exports =
     profile = new UserProfile message.author
     profile.update ['options.tag'], ['true']
 
-    message.reply "You've successfully opted in for recieving game tags."
+    message.reply "You've successfully opted in for receiving game tags."
 
     undefined
   alias: ['']

@@ -74,7 +74,7 @@ class Commands
       content = message.content.split ' '
     else if env == 'CLI'
       content = message.split ' '
-    console.log "[.abot8] Command parsed. attempting execution..."
+    console.log "[.abot8] Received command: \"#{content[0]}\"..."
 
     @run content[0].replace('!', ''), content.dshift(), message, env
 
@@ -90,14 +90,13 @@ class Commands
     false
 
   run: (command, args, message, env) ->
-    console.log "[.abot8] Attempting to execute #{command}..."
     command = @find command
 
     return undefined if !command || global.commands[command].environment.indexOf(env) == -1
 
     global.commands[command].action @client, args, message, env
 
-    console.log "[.abot8] #{command} executed successfully (#{env})"
+    console.log "[.abot8] #{command} (#{env}) executed successfully"
 
     undefined
 

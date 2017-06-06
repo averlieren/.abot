@@ -42,7 +42,7 @@ class Tag
     if users.length == 0
       message.reply " no one else has played \"#{game}\", or no one has opted in."
     else
-      message.channel.send "", Embeds.generate ".abot Tagging", "<@#{message.author.id}> has tagged you for '#{game}'\n\t#{users.join '\t'}", "0xFFB500"
+      message.channel.send "", Embeds.generate ".abot", "<@#{message.author.id}> has tagged you for '#{game}'\n\t#{users.join '\t'}", "0xFFB500"
 
     undefined
 

@@ -23,31 +23,30 @@ getHelpPage = (page) ->
     description = global.commands[key].description
     list.push [key, description]
 
-  list
+  [list, page]
 
-getEmbed = (page) ->
+getPage = (page, env) ->
   page = Number page || 1
-  helpPage = getHelpPage page
+  help = getHelpPage page
+  title = "Help (Page #{help[1]} / #{Math.ceil Object.keys(commands).length / 5})"
   desc = ''
-  desc += "**!#{command[0]}**\n#{command[1]}\n" for command in helpPage
 
-  Embeds.generate ".abot Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})", desc
+  if env = "CLI"
+    console.log "[.abot8] #{title}"
+    console.log "[.abot8] #{command[0]}: #{command[1]}" for command in help[0]
 
-outputHelpPage = (page) ->
-  page = Number page || 1
-  helpPage = getHelpPage page
-  desc = ''
-  console.log "[.abot8] Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})"
-  console.log "[.abot8] #{command[0]}: #{command[1]}" for command in helpPage
+    undefined
+  else
+    desc += "**!#{command[0]}**\n#{command[1]}\n" for command in help[0]
 
-  undefined
+    Embeds.generate ".abot #{title}", desc
 
 module.exports =
   action: (client, args, message, env) ->
     if env == 'CLI'
-      outputHelpPage args[0]
+      getPage args[0], env
     else
-      message.channel.send '', getEmbed args[0]
+      message.channel.send '', getPage args[0], env
 
     undefined
   alias: ['']
