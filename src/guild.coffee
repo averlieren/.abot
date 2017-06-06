@@ -36,21 +36,21 @@ class Guild
   update: (keys, values) ->
     # Update guild data
     field = {}
-    field[keys[i]] = values[i] for i in [0..keys.length - 1]
+    field[keys[i]] = values[i] for i in [0...keys.length]
     field['data.lastSave']  = ((new Date()).getTime() / 1000).toFixed(0)
 
     Database.update 'guilds', {'id': @guild.id}, {$set: field}
 
     undefined
 
-  get: (path) ->
+  get: (location) ->
     # Get guild data from path
     created = await @check()
     return undefined if !created
     dock = await @retrieve()
-    path = path.split '/'
-    for i in [0..path.length - 1]
-      doc = doc[path[i]] if doc[path[i]]
+    location = location.split '/'
+    for i in location
+      doc = doc[i] if doc[i]
 
     doc
 

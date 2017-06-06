@@ -10,7 +10,7 @@ class Tag
     # QUESTION: Change tagging symbol to not interfere with native Discord functionality
     content = message.content.split ' '
     game = undefined
-    for word in [0..content.length - 1]
+    for word in [0...content.length]
       continue if !content[word].startsWith '@'
       game = content[word].substring 1, content[word].length
 

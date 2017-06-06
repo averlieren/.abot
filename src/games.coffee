@@ -17,9 +17,9 @@ class Games
   find: (game) ->
     # Searchs against games.json to find a game via abbreviation
     for role of GameList
-      for i in [0..GameList[role].length - 1]
+      for i in [0...GameList[role].length]
         return role if String(game).toUpperCase() == GameList[role][i].toUpperCase()
-        
+
     null
 
 module.exports = Games

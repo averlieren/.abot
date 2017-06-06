@@ -17,7 +17,7 @@ getHelpPage = (page) ->
   min = (page - 1) * 5
   max = min + 5
 
-  for i in [min..max - 1]
+  for i in [min...max]
     key = Object.keys(global.commands)[i]
     continue if !key
     description = global.commands[key].description
@@ -38,7 +38,7 @@ outputHelpPage = (page) ->
   helpPage = getHelpPage page
   desc = ''
   console.log "[.abot8] Help (Page #{page} / #{Math.ceil Object.keys(commands).length / 5})"
-  console.log "[.abot8] !#{command[0]}: #{command[1]}" for command in helpPage
+  console.log "[.abot8] #{command[0]}: #{command[1]}" for command in helpPage
 
   undefined
 

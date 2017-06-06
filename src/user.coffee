@@ -88,22 +88,21 @@ class User
 
   update: (keys, values) ->
     field = {}
-    field[keys[i]] = values[i] for i in [0..keys.length - 1]
+    field[keys[i]] = values[i] for i in [0...keys.length]
     field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0)
 
     Database.update 'users', {'id': @user.id}, {$set: field}
 
     undefined
 
-  get: (path) ->
+  get: (location) ->
     # Retrieve user data and find data at given path, delimiter '/'
-    # QUESTION: Change delimiter to '.' to maintain consistency with MongoDB
     created = await @check()
     return undefined if !created
     doc = await @retrieve()
-    path = path.split '/'
-    for i in [0..path.length - 1]
-      doc = doc[path[i]] if doc[path[i]]
+    location = location.split '/'
+    for i in location
+      doc = doc[i] if doc[i]
 
     doc
 

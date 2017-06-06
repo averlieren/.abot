@@ -22,20 +22,25 @@ class Commands
 
     undefined
 
-  validate: (name, command) ->
+  indexCommand: (name) ->
     # Check if command is valid
-    valid = true
-    for property in ['action', 'alias', 'description']
-      valid = false if !command[property]
+    command = require path.join __dirname, 'commands', name
 
-    return true if valid
+    invalid = false
 
-    console.log "[.abot8] Command \'#{name}\' failed validation, skipping initialization..."
+    for property in ['action', 'alias', 'description', 'environment']
+      invalid = true if !command[property]
+
+    if !invalid
+      global.commands[name] = command
+      return true
+
+    console.log "[.abot8] \x1b[31m\tSkipped \"#{name}\": failed validation\x1b[0m"
     delete require.cache[require.resolve path.join __dirname, 'commands', name]
 
     false
 
-  isCommand: (file) ->
+  validate: (file) ->
     return true if /(.js|.coffee)/.test file
 
     console.log "[.abot8] Found file: #{file} in command folder... invalid file format..."
@@ -53,13 +58,9 @@ class Commands
       console.log "[.abot8] \t#{@disabled.join ', '}"
       console.log "[.abot8] Loading commands..."
       for file in files
-        continue if !@isCommand file
         name = file.replace /(.js|.coffee)/, ''
-        continue if @disabled.indexOf(name) > - 1
-        command = require path.join __dirname, 'commands', name
-        continue if !@validate(name, command)
-        console.log "[.abot8] \tLoaded \"#{name}\""
-        global.commands[name] = command;
+        continue if @disabled.indexOf(name) > - 1 || !@validate(file) || !@indexCommand(name)
+        console.log "[.abot8] \x1b[32m\tLoaded \"#{name}\"\x1b[0m"
       true
 
     undefined
