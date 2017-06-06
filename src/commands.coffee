@@ -74,6 +74,8 @@ class Commands
       content = message.content.split ' '
     else if env == 'CLI'
       content = message.split ' '
+
+    return undefined if !content[0] || content[0] == '!' || content[0].length < 2 # Prevent executing all commands without aliases
     console.log "[.abot8] Received command: \"#{content[0]}\"..."
 
     @run content[0].replace('!', ''), content.dshift(), message, env

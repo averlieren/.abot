@@ -11,8 +11,7 @@ class Guild
 
   check: () ->
     # If no guild data is found, return false
-    doc = await @retrieve()
-    !!doc
+    (await @retrieve())?
 
   setup: () ->
     # If check fails, input guild data to database

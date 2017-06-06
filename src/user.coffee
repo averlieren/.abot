@@ -52,7 +52,6 @@ class User
   setup: () ->
     # Do if check fails.
     return undefined if await @check()
-    console.log "[.abot8] #{@user.username}"
     data = {}
 
     console.log "[.abot8] Performing first time setup for #{@user.username}."

@@ -9,7 +9,7 @@ module.exports =
     else
       message.reply 'pong'
 
-    undefined
-  alias: ['']
+    true
+  alias: []
   description: 'Checks if the bot is on'
   environment: ['DISCORD', 'CLI']

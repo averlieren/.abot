@@ -14,7 +14,7 @@ module.exports =
     status = await profile.get 'options/tag'
     message.channel.send '', Embeds.generate '.abot', "Status: #{if status.toUpperCase() == 'TRUE' then 'opted in' else 'opted out'}, Games: #{games}"
 
-    undefined
-  alias: ['']
+    true
+  alias: []
   description: 'Checks opt-in status and games attached to your profile'
   environment: ['DISCORD']

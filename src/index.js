@@ -15,9 +15,7 @@ const Input = new (require(path.join(__dirname, 'input')))(Client);
 process.stdin.setEncoding('utf8')
 
 async function profileSetup(){
-  /*
-    Setup new user profiles if not exist
-  */
+  // Setup new user profiles if not exist
   var users = [];
   Client.guilds.forEach((guild) => {
     if(guild.available){
@@ -52,7 +50,7 @@ Client.on('ready', async () => {
 
 Client.on('presenceUpdate', (_, member) => {
   if(member.presence.game){
-    console.log(`[.abot8] Presence update for ${member.user.username} (${member.presence.game})`);
+    console.log(`[.abot8] Presence update for ${member.user.username} (${member.presence.game.name})`);
     Games.addToGame(member);
   }
 })
@@ -62,11 +60,8 @@ Client.on('disconnect', () => {
 })
 
 Client.on('message', (message) => {
-  /*
-    Attempt to handle tagging and commands.
-    To prevent feedback loop, ignore all bot message.
-    Only accept messages from guilds.
-  */
+  // Handle tagging and commands; prevent feedback loop by excluding bot and non-guild messages.
+
   console.log(`[.abot8] MESSAGE [${new Date().toUTCString()}] (ID: ${message.author.id}) ${(message.author.bot ? 'BOT' : 'USER')} ${message.author.username}: ${message.content}`);
 
   if(message.author.bot || !message.guild) return;
@@ -75,9 +70,7 @@ Client.on('message', (message) => {
 })
 
 Client.on('guildMemberAdd', (member) => {
-  /*
-    Setup new userprofile if not exists for new user, to ensure dependent functions work properly
-  */
+  // Setup new user profile if not exists for new user, to ensure dependent functions work properly
   console.log(`[.abot8] guildMemberAdd event: ${member.user.username}`);
   (new UserProfile(member.user)).setup();
 })

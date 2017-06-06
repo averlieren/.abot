@@ -7,7 +7,7 @@ Queue = require path.join __dirname, '../', 'queue'
 
 module.exports =
   action: (client, args, message, env) ->
-    undefined
-  alias: ['']
+    true
+  alias: []
   description: 'Add to queue'
   environment: ['DISCORD']

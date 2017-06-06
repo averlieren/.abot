@@ -18,5 +18,5 @@ class Config
   refresh: (file) ->
     file = file || path.join __dirname, 'config', 'settings.json'
     delete require.cache[require.resolve file]
-    
+
 module.exports = Config

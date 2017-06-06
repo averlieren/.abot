@@ -11,7 +11,7 @@ module.exports =
     cmdMgr = new Commands client
     cmdMgr.refreshCommands()
 
-    undefined
-  alias: ['']
+    true
+  alias: []
   description: 'Refresh commands'
   environment: ['DISCORD', 'CLI']

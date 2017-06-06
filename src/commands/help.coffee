@@ -26,16 +26,17 @@ getHelpPage = (page) ->
   [list, page]
 
 getPage = (page, env) ->
-  page = Number page || 1
+  page = 1 if isNaN page
+  page = Number page|| 1
   help = getHelpPage page
   title = "Help (Page #{help[1]} / #{Math.ceil Object.keys(commands).length / 5})"
   desc = ''
 
-  if env = "CLI"
+  if env == "CLI"
     console.log "[.abot8] #{title}"
     console.log "[.abot8] #{command[0]}: #{command[1]}" for command in help[0]
 
-    undefined
+    false
   else
     desc += "**!#{command[0]}**\n#{command[1]}\n" for command in help[0]
 
@@ -43,12 +44,10 @@ getPage = (page, env) ->
 
 module.exports =
   action: (client, args, message, env) ->
-    if env == 'CLI'
-      getPage args[0], env
-    else
-      message.channel.send '', getPage args[0], env
+    page = getPage args[0], env
+    message.channel.send '', page, env if page
 
-    undefined
-  alias: ['']
+    true
+  alias: []
   description: 'Returns a list of commands'
   environment: ['DISCORD', 'CLI']
