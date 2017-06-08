@@ -12,7 +12,6 @@ const Guild = require(path.join(__dirname, 'guild'));
 const Tags = new (require(path.join(__dirname, 'tagging')));
 const UserProfile = require(path.join(__dirname, 'user'));
 const Input = new (require(path.join(__dirname, 'input')))(Client);
-process.stdin.setEncoding('utf8')
 
 async function profileSetup(){
   // Setup new user profiles if not exist
