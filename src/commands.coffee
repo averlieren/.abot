@@ -1,4 +1,4 @@
-fs = require 'fs'
+fs = require 'fs-extra'
 path = require 'path'
 Config = new (require path.join __dirname, 'config')
 
@@ -52,16 +52,17 @@ class Commands
     console.log "[.abot8] Fetching commands..."
     global.commands = {}
     @disabled = Config.raw 'commands/disabled'
+    files = await fs.readdir path.join __dirname, 'commands'
 
-    fs.readdir path.join(__dirname, 'commands'), (e, files) =>
+    if @disabled.length != 0
       console.log "[.abot8] The following commands have been disabled; skipping initialization..."
-      console.log "[.abot8] \t#{@disabled.join ', '}"
+      console.log "[.abot8] \x1b[31m\t#{@disabled.join ', '}\x1b[0m"
       console.log "[.abot8] Loading commands..."
-      for file in files
-        name = file.replace /(.js|.coffee)/, ''
-        continue if @disabled.indexOf(name) > - 1 || !@validate(file) || !@indexCommand(name)
-        console.log "[.abot8] \x1b[32m\tLoaded \"#{name}\"\x1b[0m"
-      true
+
+    for file in files
+      name = file.replace /(.js|.coffee)/, ''
+      continue if @disabled.indexOf(name) > -1 || !@validate(file) || !@indexCommand(name)
+      console.log "[.abot8] \x1b[32m\tLoaded \"#{name}\"\x1b[0m"
 
     undefined
 
