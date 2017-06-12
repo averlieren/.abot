@@ -27,10 +27,15 @@ profileSetup = () ->
   # Awaiting support for ES6 'of'... ;(
   # Also want method to explicitly define async functions
   UserList = await Database.find 'users', {}
-  IDList = []
+  GuildList = await Database.find 'guilds', {}
+  IDList = {
+    guilds: []
+    users: []
+  }
   users = []
 
-  IDList.push user.id for user in UserList
+  IDList.users.push user.id for user in UserList
+  IDList.guilds.push guild.id for guild in GuildList
 
   guildIterator = Client.guilds.entries()
   while(v = guildIterator.next(); !v.done)
@@ -39,9 +44,9 @@ profileSetup = () ->
       membersIterator = guild.members.entries()
       while(w = membersIterator.next(); !w.done)
         [__, member] = w.value
-        users.push member.user if IDList.indexOf(member.user.id) == -1 && !member.user.bot && users.indexOf(member.user) == -1
+        users.push member.user if IDList.users.indexOf(member.user.id) == -1 && !member.user.bot && users.indexOf(member.user) == -1
 
-    new Guild(guild).setup()
+    new Guild(guild).setup() if IDList.guilds.indexOf(guild.id) == -1
 
   new UserProfile(user).setup() for user in users
 
