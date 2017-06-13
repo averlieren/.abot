@@ -14,7 +14,7 @@ class Tag
       continue if !content[word].startsWith '@'
       game = content[word].substring 1, content[word].length
 
-    return undefined if !game || game == 'here' || game == 'everyone' || /(#|!|@|#|\$|%|\^|&|\*|\(|\))/.test game
+    return undefined if !game || game == 'here' || game == 'everyone' || /(#|!|@|#|\$|%|\^|&|\*|\(|\||\,|\.|\))/.test game
 
     console.log "[.abot8] Tag parsed..."
     if Games.find(game) != null
