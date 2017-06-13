@@ -28,10 +28,9 @@ profileSetup = () ->
   # Also want method to explicitly define async functions
   UserList = await Database.find 'users', {}
   GuildList = await Database.find 'guilds', {}
-  IDList = {
+  IDList =
     guilds: []
     users: []
-  }
   users = []
 
   IDList.users.push user.id for user in UserList
