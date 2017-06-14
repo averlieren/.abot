@@ -40,9 +40,9 @@ class Tag
   tag: (game, message) ->
     users = await @getUsers game, message
     if users.length == 0
-      message.reply " no one else has played \"#{game}\", or no one has opted in."
+      message.reply " no one else has played \"#{game}\", or no one has opted in.\nUse `!tag` to opt in or out."
     else
-      message.channel.send "", Embeds.generate ".abot", "<@#{message.author.id}> has tagged you for '#{game}'\n\t#{users.join '\t'}", "0xFFB500"
+      message.channel.send "", Embeds.generate ".abot", "<@#{message.author.id}> has tagged you for '#{game}'\n\t#{users.join '\t'}\n\nUse `!tag` to opt in or out.", "0xFFB500"
 
     undefined
 
