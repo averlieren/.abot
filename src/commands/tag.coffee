@@ -8,7 +8,7 @@ UserProfile = require path.join __dirname, '../', 'user'
 module.exports =
   action: (client, args, message, env) ->
     profile = new UserProfile message.author
-    current = profile.get 'options/tag'
+    current = await profile.get 'options/tag'
     
     if current == 'true'
       profile.update ['options.tag'], ['false']
