@@ -57,7 +57,7 @@ class Queue
       next = @nextInQueue()
 
       if !next
-        connection.end()
+        connection.disconnect()
         return false
 
       dispatcher = connection.playStream ytdl next, {filter: 'audioonly'}
