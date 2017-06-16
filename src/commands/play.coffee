@@ -10,8 +10,8 @@ module.exports =
     if args[0]?
       queue = new Queue(message.guild)
       if queue.addToQueue args[0]
-        queue.play message.member.voiceChannel
-
+        queue.play client, message.member.voiceChannel
+        
     true
   alias: []
   description: 'Add audio source to queue'
