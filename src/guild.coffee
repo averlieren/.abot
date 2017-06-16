@@ -24,8 +24,6 @@ class Guild
       'lastSave': ((new Date()).getTime() / 1000).toFixed(0)
     }
 
-    data['queue'] = {}
-
     data['id'] = @guild.id
 
     Database.insert 'guilds', data
