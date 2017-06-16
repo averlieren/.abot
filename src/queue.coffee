@@ -5,28 +5,19 @@ class Queue
     @guild = guild
 
   check: (source) ->
+    console.log source
+    console.log source.includes 'youtube.com/watch?v='
     source.includes 'youtube.com/watch?v='
 
-  getInfo: (source) ->
-    return undefined if !check source
-    ytdl.getInfo source, (err, info) =>
-      return null if err
-      return info
-
-    null
-
   addToQueue: (source) ->
-    return undefined if !check source
-    global.queue[@guild.id] = [] if !global.queue[@guild.id]
+    return false if !@check source
 
-    queue = global.queue[@guild.id]
-    info = getInfo source
+    g_queue = global.queue[@guild.id]
 
-    return undefined if !info
-
-    queue.push source
-
-    global.queue[@guild.id] = queue;
+    if g_queue?
+      g_queue.push source
+    else
+      global.queue[@guild.id] = [source]
 
     @play()
 
@@ -35,12 +26,7 @@ class Queue
   nextInQueue: () ->
     return undefined if !global.queue[@guild.id]
 
-    queue = global.queue[@guild.id]
-    next = queue.shift()
-
-    global.queue[@guild.id] = queue
-
-    next
+    global.queue[@guild.id].shift()
 
   play: () ->
     next = nextInQueue()

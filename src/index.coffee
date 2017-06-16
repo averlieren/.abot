@@ -54,7 +54,8 @@ Client.on 'ready', () =>
 
       console.log "[.abot8] Startup successful, bot is now online"
 
-      global.client = Client;
+      global.queue = {}
+      global.dispatchers = {}
     )
   )
 
