@@ -17,20 +17,29 @@ class Queue
     else
       global.queue[@guild.id] = [source]
 
-    @play()
-
-    undefined
+    true
 
   nextInQueue: () ->
     return undefined if !global.queue[@guild.id]
 
     global.queue[@guild.id].shift()
 
-  play: () ->
-    next = nextInQueue()
-    info = getInfo next
+  play: (channel) ->
+    return undefined if !channel
+    if !global.dispatchers[@guild]?
+      next = @nextInQueue()
 
-    console.log "[.abot8] #{next}"
+      return undefined if !next
+
+      connection = await channel.join()
+      dispatcher = connection.playStream ytdl next, {filter: 'audioonly'}
+
+      dispatcher.on('end', (reason) =>
+        delete global.dispatchers[@guild]
+        @play channel
+        )
+
+      global.dispatchers[@guild] = dispatcher
 
     undefined
 
