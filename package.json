@@ -11,6 +11,6 @@
     "fs-extra": "^3.0.1",
     "mongodb": "^2.2.28",
     "winston": "~2.3.1",
-    "ytdl-core": "^0.14.2"
+    "ytdl-core": "^0.14.4"
   }
 }
