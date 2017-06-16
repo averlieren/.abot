@@ -5,8 +5,6 @@ class Queue
     @guild = guild
 
   check: (source) ->
-    console.log source
-    console.log source.includes 'youtube.com/watch?v='
     source.includes 'youtube.com/watch?v='
 
   addToQueue: (source) ->
