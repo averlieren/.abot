@@ -24,7 +24,6 @@ checkConnection = () ->
   true
 
 profileSetup = () ->
-  # Awaiting support for ES6 'of'... ;(
   # Also want method to explicitly define async functions
   UserList = await Database.find 'users', {}
   GuildList = await Database.find 'guilds', {}
@@ -36,16 +35,10 @@ profileSetup = () ->
   IDList.users.push user.id for user in UserList
   IDList.guilds.push guild.id for guild in GuildList
 
-  guildIterator = Client.guilds.entries()
-  while(v = guildIterator.next(); !v.done)
-    [_, guild] = v.value
-    if guild.available
-      membersIterator = guild.members.entries()
-      while(w = membersIterator.next(); !w.done)
-        [__, member] = w.value
-        users.push member.user if IDList.users.indexOf(member.user.id) == -1 && !member.user.bot && users.indexOf(member.user) == -1
-
-    new Guild(guild).setup() if IDList.guilds.indexOf(guild.id) == -1
+  for [_, guild] from Client.guilds
+    for [_, member] from guild.members
+      users.push member.user if !user.id in IDList.users && !member.user.bot && !member.user in users
+    new Guild(guild).setup() if !guild.id in IDList.guilds
 
   new UserProfile(user).setup() for user in users
 
@@ -55,7 +48,7 @@ Client.on 'ready', () =>
   console.log "[.abot8] Logged in... checking database..."
 
   checkConnection().then((_) =>
-    profileSetup().then((__) =>
+    profileSetup().then((_) =>
       Commands.fetchCommands()
       Input.listen()
 
