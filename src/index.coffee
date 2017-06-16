@@ -56,6 +56,7 @@ Client.on 'ready', () =>
 
       global.queue = {}
       global.dispatchers = {}
+      global.playing = {}
     )
   )
 
