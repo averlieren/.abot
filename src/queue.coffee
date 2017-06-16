@@ -24,22 +24,22 @@ class Queue
 
     global.queue[@guild.id].shift()
 
-  play: (channel) ->
+  play: (client, channel) ->
     return undefined if !channel
-    if !global.dispatchers[@guild]?
-      next = @nextInQueue()
-
-      return undefined if !next
-
+    if !global.dispatchers[@guild.id]?
       connection = await channel.join()
+      next = @nextInQueue()
+      if !next
+        connection.disconnect()
+        return undefined
       dispatcher = connection.playStream ytdl next, {filter: 'audioonly'}
 
       dispatcher.on('end', (reason) =>
-        delete global.dispatchers[@guild]
-        @play channel
+        global.dispatchers[@guild.id] = null
+        @play client, channel
         )
 
-      global.dispatchers[@guild] = dispatcher
+      global.dispatchers[@guild.id] = dispatcher
 
     undefined
 
