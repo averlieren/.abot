@@ -5,7 +5,7 @@ module.exports =
   action: (client, args, message, env) ->
     if args[0]?
       queue = new Queue(message.guild)
-      if queue.addToQueue args[0]
+      if await queue.addToQueue args[0]
         queue.play client, message.member.voiceChannel
 
     true
