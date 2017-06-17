@@ -10,5 +10,5 @@ module.exports =
 
     true
   alias: []
-  description: 'Add audio source to queue'
+  description: 'Queue a YouTube video'
   environment: ['DISCORD']

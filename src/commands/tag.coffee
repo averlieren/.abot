@@ -9,7 +9,7 @@ module.exports =
   action: (client, args, message, env) ->
     profile = new UserProfile message.author
     current = await profile.get 'options/tag'
-    
+
     if current == 'true'
       profile.update ['options.tag'], ['false']
       message.reply "You are no longer receiving game tags."
@@ -19,5 +19,5 @@ module.exports =
 
     true
   alias: []
-  description: 'Opt-out to game tagging'
+  description: 'Opt in or out of tagging'
   environment: ['DISCORD']

@@ -5,6 +5,6 @@ module.exports =
     else
       message.reply Math.ceil Math.random() * 6
     true
-  alias: ['roll']
+  alias: ['roll', 'die']
   description: 'Rolls an N sided die, 6 by default'
   environment: ['DISCORD']

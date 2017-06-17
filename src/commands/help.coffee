@@ -49,5 +49,5 @@ module.exports =
 
     true
   alias: []
-  description: 'Returns a list of commands'
+  description: 'Lists out all commands with their descriptions'
   environment: ['DISCORD', 'CLI']

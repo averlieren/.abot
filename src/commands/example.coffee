@@ -14,6 +14,6 @@ module.exports =
       message.reply msg
 
     true # Return true if command has executed properly
-  alias: []                     # Alias(es) for the command; use empty array if none
+  alias: []                       # Alias(es) for the command; use empty array if none
   description: ''                 # Description of what command does; must be non empty string
   environment: ['DISCORD', 'CLI'] # Determines what environment the command can ran in

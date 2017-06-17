@@ -11,5 +11,5 @@ module.exports =
 
     true
   alias: []
-  description: 'Checks if the bot is on'
+  description: 'Checks if the bot is responsive'
   environment: ['DISCORD', 'CLI']

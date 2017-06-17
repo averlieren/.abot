@@ -10,5 +10,5 @@ module.exports =
       message.reply 'Nothing is currently playing.'
     true
   alias: []
-  description: 'Add audio source to queue'
+  description: 'Tells you what is being played right now'
   environment: ['DISCORD']

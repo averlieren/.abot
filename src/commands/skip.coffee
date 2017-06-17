@@ -7,5 +7,5 @@ module.exports =
 
     true
   alias: []
-  description: 'Add audio source to queue'
+  description: 'Skip the current song'
   environment: ['DISCORD']
