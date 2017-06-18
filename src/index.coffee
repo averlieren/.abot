@@ -75,6 +75,7 @@ Client.on 'presenceUpdate', (_, member) =>
 
 Client.on 'guildMemberAdd', (member) =>
   console.log "[.abot8] New member, \"#{member.user.username}\""
+  new UserProfile(member.user).setup()
 
 Client.on 'disconnect', () =>
   console.log "[.abot8] Lost connection... attempting to reestablish a connection..."
