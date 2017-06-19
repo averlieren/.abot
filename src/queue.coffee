@@ -24,6 +24,9 @@ class Queue
     else
       global.playing[@guild.id]
 
+  getDispatcher: () ->
+    global.dispatchers[@guild.id]
+
   addToQueue: (source) ->
     return false if !@check source
     info = await @getInfo source
