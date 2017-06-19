@@ -24,39 +24,31 @@ checkConnection = () ->
   true
 
 profileSetup = () ->
-  # Also want method to explicitly define async functions
-  UserList = await Database.find 'users', {}
-  GuildList = await Database.find 'guilds', {}
-  IDList =
-    guilds: []
-    users: []
+  await undefined
   users = []
-
-  IDList.users.push user.id for user in UserList
-  IDList.guilds.push guild.id for guild in GuildList
-
   for [_, guild] from Client.guilds
     for [_, member] from guild.members
-      users.push member.user if !user.id in IDList.users && !member.user.bot && !member.user in users
-    new Guild(guild).setup() if !guild.id in IDList.guilds
+      users.push member.user if !member.user.bot && !member.user in users
+
+    new Guild(guild).setup()
 
   new UserProfile(user).setup() for user in users
-
   true
 
 Client.on 'ready', () =>
   console.log "[.abot8] Logged in... checking database..."
-
+  console.time '[.abot8] Startup successful in'
   checkConnection().then((_) =>
     profileSetup().then((_) =>
       Commands.fetchCommands()
       Input.listen()
 
-      console.log "[.abot8] Startup successful, bot is now online"
-
       global.queue = {}
       global.dispatchers = {}
       global.playing = {}
+
+      console.timeEnd '[.abot8] Startup successful in'
+      console.log "[.abot8] \x1b[32m.abot is now online\x1b[0m"
     )
   )
 
