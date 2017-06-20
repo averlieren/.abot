@@ -10,7 +10,7 @@ class Queue
       global.queue[@guild.id]
 
   check: (source) ->
-    source.includes 'youtube.com/watch?v='
+    source.includes('youtube.com/watch?v=') || source.includes('youtu.be')
 
   getInfo: (url) ->
     await ytdl.getInfo url
