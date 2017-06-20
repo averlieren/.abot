@@ -16,7 +16,7 @@ class Queue
     await ytdl.getInfo url
 
   isPlaying: () ->
-    global.playing[@guild.id]?
+    global.playing[@guild.id]? && global.dispatchers[@guild.id]?
 
   getPlaying: (embed) ->
     if embed
