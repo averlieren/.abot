@@ -8,7 +8,6 @@ class Commands
 
   refreshCommands: () ->
     # Refresh commands without restarting client
-
     console.log "[.abot8] Refreshing commands... unloading..."
 
     for own command, _ of global.commands
@@ -79,7 +78,7 @@ class Commands
     return undefined if !content[0] || content[0] == '!' || content[0].length < 2 # Prevent executing all commands without aliases
     console.log "[.abot8] Received command: \"#{content[0]}\"..."
 
-    @run content[0].replace('!', ''), content.dshift(), message, env
+    @run content[0].replace('!', ''), content.slice(1), message, env
 
     undefined
 
@@ -102,9 +101,5 @@ class Commands
     console.log "[.abot8] #{command} (#{env}) executed successfully"
 
     undefined
-
-Array.prototype.dshift = () ->
-  @shift()
-  return @
 
 module.exports = Commands
