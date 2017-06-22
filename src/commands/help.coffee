@@ -20,7 +20,7 @@ getHelpPage = (page) ->
   for i in [min...max]
     key = Object.keys(global.commands)[i]
     continue if !key
-    console.log "#{key} : #{global.commands[key].alias}"
+
     list.push [key, global.commands[key].description, global.commands[key].alias]
 
   [list, page]
