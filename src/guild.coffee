@@ -31,12 +31,25 @@ class Guild
     undefined
 
   update: (keys, values) ->
-    # Update guild data
+    @modify keys, values, false
+
+    undefined
+
+  unset: (key) ->
+    values[i] = '' for i in [0...keys.length]
+    @modify keys, values, true
+
+    undefined
+
+  modify: (keys, values, unset) ->
     field = {}
     field[keys[i]] = values[i] for i in [0...keys.length]
-    field['data.lastSave']  = ((new Date()).getTime() / 1000).toFixed(0)
 
-    Database.update 'guilds', {'id': @guild.id}, {$set: field}
+    if unset
+      Database.update 'guilds', {'id': @guild.id}, {$unset: field}
+    else
+      field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0)
+      Database.update 'guilds', {'id': @guild.id}, {$set: field}
 
     undefined
 
