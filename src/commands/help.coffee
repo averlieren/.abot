@@ -20,8 +20,8 @@ getHelpPage = (page) ->
   for i in [min...max]
     key = Object.keys(global.commands)[i]
     continue if !key
-    description = global.commands[key].description
-    list.push [key, description]
+    console.log "#{key} : #{global.commands[key].alias}"
+    list.push [key, global.commands[key].description, global.commands[key].alias]
 
   [list, page]
 
@@ -34,11 +34,11 @@ getPage = (page, env) ->
 
   if env == "CLI"
     console.log "[.abot8] #{title}"
-    console.log "[.abot8] #{command[0]}: #{command[1]}" for command in help[0]
+    console.log "[.abot8] #{command[0]}#{if command[2][0] != undefined then ', ' + command[2].join ', ' else ''}: #{command[1]}" for command in help[0]
 
     false
   else
-    desc += "**!#{command[0]}**\n#{command[1]}\n" for command in help[0]
+    desc += "**!#{command[0]}#{if command[2][0] != undefined then ', !' + command[2].join ', !' else ''}**\n#{command[1]}\n" for command in help[0]
 
     Embeds.generate ".abot #{title}", desc
 
