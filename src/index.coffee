@@ -31,8 +31,8 @@ profileSetup = () ->
       users.push member.user if !member.user.bot && !member.user in users
 
     new Guild(guild).setup()
-
   new UserProfile(user).setup() for user in users
+
   true
 
 Client.on 'ready', () =>
@@ -61,7 +61,7 @@ Client.on 'message', (message) =>
   Tags.parse message
 
 Client.on 'presenceUpdate', (_, member) =>
-  if(member.presence.game)
+  if(member.presence.game && !member.user.bot)
     console.log "[.abot8] Presence update for #{member.user.username} (#{member.presence.game.name})"
     Games.addToGame member
 
