@@ -61,7 +61,7 @@ Client.on 'message', (message) =>
   Tags.parse message
 
 Client.on 'presenceUpdate', (_, member) =>
-  if(member.presence.game)
+  if(member.presence.game && !member.user.bot)
     console.log "[.abot8] Presence update for #{member.user.username} (#{member.presence.game.name})"
     Games.addToGame member
 
