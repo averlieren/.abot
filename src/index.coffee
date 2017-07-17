@@ -28,11 +28,11 @@ profileSetup = () ->
   users = []
   for [_, guild] from Client.guilds
     for [_, member] from guild.members
-      users.push member.user if !member.user.bot && !member.user in users
+      users.push member.user if !member.user.bot && users.indexOf(member.user) == -1
 
     new Guild(guild).setup()
-
   new UserProfile(user).setup() for user in users
+
   true
 
 Client.on 'ready', () =>
