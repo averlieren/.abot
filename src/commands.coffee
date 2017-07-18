@@ -6,7 +6,7 @@ class Commands
   constructor: (client) ->
     @client = client
 
-  refreshCommands: () ->
+  refresh: () ->
     # Refresh commands without restarting client
     console.log "[.abot8] Refreshing commands... unloading..."
 

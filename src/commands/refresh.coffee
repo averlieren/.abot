@@ -5,11 +5,15 @@
 
 path = require 'path'
 Commands = require path.join __dirname, '../', 'commands'
+Games = new (require path.join __dirname, '../', 'games')()
+Config = new (require path.join __dirname, '../', 'config')()
 
 module.exports =
   action: (client, args, message, env) ->
-    cmdMgr = new Commands client
-    cmdMgr.refreshCommands()
+    Commands = new Commands client
+    Commands.refresh()
+    Games.refresh()
+    Config.refresh()
 
     true
   alias: []

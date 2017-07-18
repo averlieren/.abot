@@ -6,8 +6,7 @@ class Config
     String @raw location, file
 
   raw: (location, file) ->
-    file = file || path.join __dirname, 'config', 'settings.json'
-    file = require file
+    file = require(file || path.join __dirname, 'config', 'settings.json')
     schema = file
     location = location.split '/'
 
@@ -17,6 +16,9 @@ class Config
 
   refresh: (file) ->
     file = file || path.join __dirname, 'config', 'settings.json'
+    console.log "[.abot8] Unloading #{file}"
     delete require.cache[require.resolve file]
+
+    undefined
 
 module.exports = Config

@@ -20,7 +20,7 @@ class Queue
 
   getPlaying: (embed) ->
     if embed
-      Embeds.generate(".abot", "**Playing: [#{global.playing[@guild.id][1]}](#{global.playing[@guild.id][0]})**")
+      Embeds.generate ".abot", "**Playing: [#{global.playing[@guild.id][1]}](#{global.playing[@guild.id][0]})**"
     else
       global.playing[@guild.id]
 
