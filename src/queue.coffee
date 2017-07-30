@@ -1,5 +1,5 @@
-path = require 'path'
-ytdl = require 'ytdl-core'
+path   =      require 'path'
+ytdl   =      require 'ytdl-core'
 Embeds = new (require path.join __dirname, 'embeds')
 
 class Queue
@@ -7,7 +7,7 @@ class Queue
     @guild = guild
 
   getQueue: () ->
-      global.queue[@guild.id]
+    global.queue[@guild.id]
 
   check: (source) ->
     source.includes('youtube.com/watch?v=') || source.includes('youtu.be')

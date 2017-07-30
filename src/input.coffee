@@ -1,10 +1,10 @@
-path = require 'path'
+path     = require 'path'
 Commands = require path.join __dirname, 'commands'
 
 class Input
-  constructor: (Client) ->
+  constructor: (connection, client) ->
     process.stdin.setEncoding 'utf8'
-    Commands = new Commands Client
+    Commands = new Commands connection, client
 
   listen: () ->
     console.log "[.abot8] Now listening to user input via CLI"
@@ -20,4 +20,5 @@ class Input
     Commands.parse data, 'CLI'
 
     undefined
+
 module.exports = Input

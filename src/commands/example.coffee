@@ -3,7 +3,7 @@
 ###
 
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
     # Define what the command will do
     msg = 'hello, if you\'re reading this then this command is enabled'
     if env == 'CLI'

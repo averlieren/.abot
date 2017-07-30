@@ -1,8 +1,8 @@
-path = require 'path'
+path  = require 'path'
 Queue = require path.join __dirname, '../', 'queue'
 
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
     queue = new Queue message.guild
     if queue.isPlaying()
       message.channel.send '', queue.getPlaying(true)

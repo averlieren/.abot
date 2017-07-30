@@ -1,4 +1,4 @@
-path = require 'path'
+path     = require 'path'
 Database = new (require path.join __dirname, 'database')
 
 ###
@@ -33,12 +33,13 @@ Database = new (require path.join __dirname, 'database')
 
 
 class User
-  constructor: (user) ->
-    @user = user
+  constructor: (connection, user) ->
+    @user       = user
+    @connection = connection
 
   retrieve: () ->
     # Attempt to retrieve user data from 'users' collection.
-    await Database.first 'users', {'id': @user.id}
+    await Database.first @connection, 'users', {'id': @user.id}
 
   check: () ->
     # Checks if user data is present and user is not bot.
@@ -81,7 +82,7 @@ class User
 
     data['games'] = []
 
-    Database.insert 'users', data
+    Database.insert @connection, 'users', data
 
     undefined
 
@@ -101,10 +102,10 @@ class User
     field[keys[i]] = values[i] for i in [0...keys.length]
 
     if unset
-      Database.update 'users', {'id': @user.id}, {$unset: field}
+      Database.update @connection, 'users', {'id': @user.id}, {$unset: field}
     else
       field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0)
-      Database.update 'users', {'id': @user.id}, {$set: field}
+      Database.update @connection, 'users', {'id': @user.id}, {$set: field}
 
     undefined
 

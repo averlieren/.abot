@@ -1,9 +1,13 @@
-path = require 'path'
+path     =      require 'path'
 Database = new (require path.join __dirname, 'database')
-Embeds = new (require path.join __dirname, 'embeds')
-Games = new (require path.join __dirname, 'games')
+Embeds   = new (require path.join __dirname, 'embeds'  )
+Games    =      require path.join __dirname, 'games'
 
 class Tag
+  constructor: (connection) ->
+    @connection = connection
+    Games       = new Games connection
+
   parse: (message) ->
     # Check if message contains tag, if so then parse tag
     # TODO: Implement fuzzy search
@@ -27,7 +31,7 @@ class Tag
   getUsers: (game, message) ->
     # Search users' games to find matching game
     found = []
-    users = await Database.find 'users', {}
+    users = await Database.find @connection, 'users', {}
 
     message.guild.members.forEach (member,_) =>
       if member.id != message.author.id && !message.author.bot

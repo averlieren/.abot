@@ -3,14 +3,16 @@
     without restarting the client.
 ###
 
-path = require 'path'
-Commands = require path.join __dirname, '../', 'commands'
-Games = new (require path.join __dirname, '../', 'games')()
-Config = new (require path.join __dirname, '../', 'config')()
+path     =      require 'path'
+Commands =      require path.join __dirname, '../', 'commands'
+Games    =      require path.join __dirname, '../', 'games'
+Config   = new (require path.join __dirname, '../', 'config'  )()
 
 module.exports =
-  action: (client, args, message, env) ->
-    Commands = new Commands client
+  action: (client, args, message, env, connection) ->
+    Games    = new Games    connection
+    Commands = new Commands connection, client
+
     Commands.refresh()
     Games.refresh()
     Config.refresh()

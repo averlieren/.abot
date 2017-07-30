@@ -3,7 +3,7 @@
 ###
 
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
     if env == 'CLI'
       console.log "[.abot8] pong"
     else

@@ -3,11 +3,11 @@
 ###
 
 path = require 'path'
-UserProfile = require path.join __dirname, '../', 'user'
+User = require path.join __dirname, '../', 'user'
 
 module.exports =
-  action: (client, args, message, env) ->
-    profile = new UserProfile message.author
+  action: (client, args, message, env, connection) ->
+    profile = new User connection, message.author
     current = await profile.get 'options/tag'
 
     if current == 'true'

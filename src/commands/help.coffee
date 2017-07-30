@@ -3,9 +3,8 @@
     with the description of the command's purpose.
 ###
 
-path = require 'path'
-Discord = require 'discord.js'
-Embeds = new (require path.join __dirname, '../', 'embeds')
+path    =      require 'path'
+Embeds  = new (require path.join __dirname, '../', 'embeds')
 
 getHelpPage = (page) ->
   total = Object.keys(global.commands).length
@@ -43,7 +42,7 @@ getPage = (page, env) ->
     Embeds.generate ".abot #{title}", desc
 
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
     page = getPage args[0], env
     message.channel.send '', page, env if page
 

@@ -1,11 +1,11 @@
-path = require 'path'
-Queue = require path.join __dirname, '../', 'queue'
+path   =      require 'path'
+Queue  =      require path.join __dirname, '../', 'queue'
 Embeds = new (require path.join __dirname, '../', 'embeds')
 
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
     queue = new Queue message.guild
-    if queue.getQueue? && queue.getQueue()[0]
+    if queue.getQueue()? && queue.getQueue()[0]?
       info = queue.getQueue()[0]
       message.channel.send '', Embeds.generate '.abot', "**Next: [#{info[1]}](#{info[0]})**"
     else

@@ -1,5 +1,6 @@
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
+    connection.close()
     client.destroy()
     process.exit 1
 

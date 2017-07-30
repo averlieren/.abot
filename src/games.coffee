@@ -1,14 +1,17 @@
-path = require 'path'
-UserProfile = require path.join __dirname, 'user'
+path         = require 'path'
+User         = require path.join __dirname, 'user'
 gameListPath = path.join __dirname, 'config/games.json'
-GameList = require gameListPath
+GameList     = require gameListPath
 
 class Games
+  constructor: (connection) ->
+    @connection = connection
+
   addToGame: (member) ->
     # Appends game to member's profile
-    profile = new UserProfile member.user
+    profile      = new User @connection, member.user
     currentGames = await profile.get 'games'
-    game = member.presence.game.name.toUpperCase()
+    game         = member.presence.game.name.toUpperCase()
     return undefined if currentGames.indexOf(game) != -1
     currentGames.push game
     profile.update ['games'], [currentGames]

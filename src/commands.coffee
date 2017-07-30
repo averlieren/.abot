@@ -1,10 +1,11 @@
-fs = require 'fs-extra'
-path = require 'path'
+fs     =      require 'fs-extra'
+path   =      require 'path'
 Config = new (require path.join __dirname, 'config')
 
 class Commands
-  constructor: (client) ->
-    @client = client
+  constructor: (connection, client) ->
+    @client     = client
+    @connection = connection
 
   refresh: () ->
     # Refresh commands without restarting client
@@ -42,7 +43,7 @@ class Commands
   validate: (file) ->
     return true if /(.js|.coffee)/.test file
 
-    console.log "[.abot8] Found file: #{file} in command folder... invalid file format..."
+    console.log "[.abot8] Found file: #{file} in command folder... invalid format..."
 
     false
 
@@ -96,7 +97,7 @@ class Commands
 
     return undefined if !command || global.commands[command].environment.indexOf(env) == -1
 
-    global.commands[command].action @client, args, message, env
+    global.commands[command].action @client, args, message, env, @connection
 
     console.log "[.abot8] #{command} (#{env}) executed successfully"
 

@@ -1,13 +1,14 @@
-path = require 'path'
+path     = require 'path'
 Database = new (require path.join __dirname, 'database')
 
 class Guild
-  constructor: (guild) ->
-    @guild = guild
+  constructor: (connection, guild) ->
+    @guild      = guild
+    @connection = connection
 
   retrieve: () ->
     # Get guild data from database, if any
-    await Database.first 'guilds', {'id': @guild.id}
+    await Database.first @connection, 'guilds', {'id': @guild.id}
 
   check: () ->
     # If no guild data is found, return false
@@ -26,7 +27,7 @@ class Guild
 
     data['id'] = @guild.id
 
-    Database.insert 'guilds', data
+    Database.insert @connection, 'guilds', data
 
     undefined
 
@@ -46,10 +47,10 @@ class Guild
     field[keys[i]] = values[i] for i in [0...keys.length]
 
     if unset
-      Database.update 'guilds', {'id': @guild.id}, {$unset: field}
+      Database.update @connection, 'guilds', {'id': @guild.id}, {$unset: field}
     else
       field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0)
-      Database.update 'guilds', {'id': @guild.id}, {$set: field}
+      Database.update @connection, 'guilds', {'id': @guild.id}, {$set: field}
 
     undefined
 

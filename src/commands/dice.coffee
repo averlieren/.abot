@@ -1,5 +1,5 @@
 module.exports =
-  action: (client, args, message, env) ->
+  action: (client, args, message, env, connection) ->
     if args[0]? && !isNaN args[0]
       message.reply Math.ceil Math.random() * Number(args[0])
     else
