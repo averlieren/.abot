@@ -1,4 +1,4 @@
-path = require 'path'
+path     =      require 'path'
 Database = new (require path.join __dirname, '../', 'database')
 
 console.log "[.abot8] Clearing database..."

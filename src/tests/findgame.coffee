@@ -1,4 +1,4 @@
-path = require 'path'
+path  =      require 'path'
 Games = new (require path.join __dirname, '../', 'games')
 
 process.exit 1 if !process.argv[2]

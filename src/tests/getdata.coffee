@@ -1,8 +1,10 @@
-path = require 'path'
+path     =      require 'path'
 Database = new (require path.join __dirname, '../', 'database')
 
 check = (collection) ->
-  doc = await Database.find collection, {}
+  connection = await Database.getConnection()
+  doc        = await Database.find connection, collection, {}
+  connection.close()
   console.log "[.abot8] Collection #{collection}, length: #{doc.length}"
 
   if process.argv[2] && collection == 'users'
