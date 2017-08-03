@@ -26,23 +26,30 @@ profileSetup = (connection) =>
 
 Client.on 'ready', () =>
   console.log "[.abot8] Sucessfully logged in"
+  try
+    connection = await Database.getConnection()
+    Tags       = new Tags     connection
+    Games      = new Games    connection
+    Input      = new Input    connection, Client
+    Commands   = new Commands connection, Client
 
-  connection = await Database.getConnection()
-  Tags       = new Tags     connection
-  Games      = new Games    connection
-  Input      = new Input    connection, Client
-  Commands   = new Commands connection, Client
+    profileSetup(connection).then((_) =>
+      Commands.fetchCommands()
+      Input.listen()
 
-  profileSetup(connection).then((_) =>
-    Commands.fetchCommands()
-    Input.listen()
+      global.queue = {}
+      global.dispatchers = {}
+      global.playing = {}
 
-    global.queue = {}
-    global.dispatchers = {}
-    global.playing = {}
-
-    console.log "[.abot8] \x1b[32m.abot is now online\x1b[0m"
-    )
+      console.log "[.abot8] \x1b[32m.abot is now online\x1b[0m"
+      )
+  catch error
+    if error.name == "MongoError"
+      console.log "[.abot8] Failed to connect to database... exiting."
+    else
+      console.log error
+      
+    process.exit 1
 
   undefined
 
