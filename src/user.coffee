@@ -99,25 +99,33 @@ class User
 
   modify: (keys, values, unset) ->
     field = {}
-    field[keys[i]] = values[i] for i in [0...keys.length]
 
-    if unset
-      Database.update @connection, 'users', {'id': @user.id}, {$unset: field}
-    else
-      field['data.lastSave'] = ((new Date()).getTime() / 1000).toFixed(0)
-      Database.update @connection, 'users', {'id': @user.id}, {$set: field}
+    field[keys[i]] = values[i] for i in [0...keys.length]
+    doc = if unset then {$unset: field} else {$set: field}
+
+    Database.update @connection, 'users', {'id': @user.id}, doc
+
+    @updateLastSaved()
+
+    undefined
+
+  updateLastModified: () ->
+    @modify(['data.lastSave'], [String Date.now()])
 
     undefined
 
   get: (location) ->
     # Retrieve user data and find data at given path, delimiter '/'
-    created = await @check()
-    return undefined if !created
-    doc = await @retrieve()
-    location = location.split '/'
-    for i in location
-      doc = doc[i] if doc[i]
+    if await @check()
+      doc      = await @retrieve()
+      location = location.split '/'
 
-    doc
+      for i in location
+        if doc[i]
+          doc = doc[i]
+      
+      return doc
+    else
+      return undefined
 
 module.exports = User

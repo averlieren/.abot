@@ -10,8 +10,7 @@ class Input
     console.log "[.abot8] Now listening to user input via CLI"
     process.stdin.on 'readable', () =>
       data = process.stdin.read()
-      if data?
-        @process data
+      @process data if data?
 
     undefined
 
