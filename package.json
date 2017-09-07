@@ -6,11 +6,11 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "coffeescript": "^2.0.0-beta3",
-    "discord.js": "~11.1.0",
+    "coffeescript": "^2.0.0-beta5",
+    "discord.js": "^11.1.0",
     "fs-extra": "^4.0.1",
-    "mongodb": "^2.2.30",
+    "mongodb": "^2.2.31",
     "node-opus": "^0.2.6",
-    "ytdl-core": "^0.15.0"
+    "ytdl-core": "^0.15.2"
   }
 }
